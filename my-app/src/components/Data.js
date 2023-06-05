@@ -1,9 +1,22 @@
+import { useState } from "react"
+
 export default function Data(props) {
     const seconds = Math.floor(props.elapsedTime / 1000)
-
-    
-    localStorage.setItem("bestTime", seconds)
+    const [timeSaved, setTimeSaved] =  useState(false)
     const bestTime = localStorage.getItem("bestTime")
+
+    function saveTime() {
+        localStorage.setItem("bestTime", seconds)
+        setTimeSaved(true);
+    }
+
+    if(timeSaved) {
+        saveTime()
+    } else if (seconds < bestTime) {
+        localStorage.setItem("bestTime", seconds)
+    }
+    
+    
     
     
     
