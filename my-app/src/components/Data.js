@@ -1,26 +1,29 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Data(props) {
     const seconds = Math.floor(props.elapsedTime / 1000)
-    const [timeSaved, setTimeSaved] = useState(false)
-    const bestTime = localStorage.getItem("bestTime")
+    const [bestTime, setBestTime] = useState(0)
+    const [timeSaved, setTimeSaved] =  useState(false)
 
     function saveTime() {
         localStorage.setItem("bestTime", seconds)
-        setTimeSaved(true);
     }
-
-    if(!timeSaved) {
+    useEffect(() => {
         saveTime()
-    } else if (seconds < bestTime) {
-        localStorage.setItem("bestTime", seconds)
-    }
+        setTimeSaved(true)
+    }, [timeSaved])
 
+    useEffect(() => {
+        if(timeSaved && seconds < bestTime){
+            saveTime()
+            const takenTime = localStorage.getItem("bestTime")
+            setBestTime(takenTime)
+        }
+    }, [seconds, bestTime, timeSaved])
     
     return(
         <div>
             <p>You took {seconds} seconds</p>
-
             <p>Best time: {bestTime} seconds</p>
         </div>
     
