@@ -2,7 +2,7 @@ import { useState } from "react"
 
 export default function Data(props) {
     const seconds = Math.floor(props.elapsedTime / 1000)
-    const [timeSaved, setTimeSaved] =  useState(false)
+    const [timeSaved, setTimeSaved] = useState(false)
     const bestTime = localStorage.getItem("bestTime")
 
     function saveTime() {
@@ -10,15 +10,12 @@ export default function Data(props) {
         setTimeSaved(true);
     }
 
-    if(timeSaved) {
+    if(!timeSaved) {
         saveTime()
     } else if (seconds < bestTime) {
         localStorage.setItem("bestTime", seconds)
     }
-    
-    
-    
-    
+
     
     return(
         <div>
