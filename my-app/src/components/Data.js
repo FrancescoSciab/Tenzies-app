@@ -12,26 +12,25 @@ export default function Data(props) {
         if(!bestTime) {
             setBestTime(seconds)
         }
-    }, [bestTime])
-        
-    
-    //to check shortest elapsed time before setting localstorage
-    useEffect(() => {
         if(seconds <= bestTime) {
             localStorage.setItem("bestTime", seconds)
         }
-    }, [seconds])
+
+        setBestTime(localStorage.getItem("bestTime"))
+    }, [seconds, bestTime])
+        
+    
+    //to check shortest elapsed time before setting localstorage
+    
 
     
-    useEffect(() => {
-        setRecord(localStorage.getItem("bestTime"))
-    }, [record])
+    
 
 
     return(
         <div>
             <p>You took {seconds} seconds</p>
-            <p>Best Time: {record}</p>
+            <p>Best Time: {bestTime}</p>
         </div>
     
     )
