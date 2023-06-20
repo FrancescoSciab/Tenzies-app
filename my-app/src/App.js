@@ -48,7 +48,6 @@ export default function App() {
     return newDice
   }
   
-
   function holdDice(id) {
     setDice(oldDice => oldDice.map( die => {
       return die.id === id ?
